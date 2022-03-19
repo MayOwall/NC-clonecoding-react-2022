@@ -13,29 +13,107 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script type="text/babel">
         const root = document.getElementById("root");
-        const Title = () => (
-            <h1 
-            id="title" onMouseEnter={() => console.log("Mouse enter!")}>
-            Hello, I'm a title
-            </h1>
-        );
-        const Button = () => (
-            <button
-            style={{backgroundColor: "tomato",
-            }}
-            onClick={() => console.log("I'm clicked!")}
-            >
-            Click me
-            </button>
-        );
-        const Container = () => (
-            <div>
-                <Title />
-                <Button />
-            </div>
-        );
 
-        ReactDOM.render(<Container />, root);
-    </script>
+        function MinutesToHours() {
+            const [amounts, setAmounts] = React.useState(0);
+            const [flipped, setFlipped] = React.useState(false);
+            let hours;
+            function onChange (event) {
+                setAmounts(event.target.value);
+            };
+            function resetAmounts () {
+                setAmounts(0);
+            };
+            function onFlip() {
+                resetAmounts();
+                setFlipped((current) => !current);
+            };
+            return (
+                <div>
+                    <h2>Minutes to Hours</h2>
+                    <label htmlFor="minutes">Minutes</label>
+                    <input 
+                    value={flipped ? amounts * 60 : amounts} 
+                    id="minutes" 
+                    placeholder="minutes"
+                    onChange = {onChange}
+                    disabled = {flipped}
+                    />
+                    <br />
+                    <label htmlFor="hours">Hours</label>
+                    <input 
+                    value = {flipped ? amounts : Math.floor(amounts / 60)}
+                    id="hours" 
+                    placeholder="hours" 
+                    onChange = {onChange}
+                    disabled = {flipped===false}
+                    />
+                    <br />
+                    <button onClick={resetAmounts}>Click to Reset!!</button>
+                    <button onClick={onFlip}>Flip</button>
+                </div>
+                );
+        };
+        function MilesToKilometers() {
+            const [amounts, setAmounts] = React.useState(0);
+            const [flipped, setFlipped] = React.useState(false);
+            function Converter(event) {
+                setAmounts(event.target.value);
+            };
+            function resetAmounts() {
+                setAmounts(0);
+            };
+            function Flipper() {
+                setFlipped((current) => !current);
+                resetAmounts();
+            };
+            return (
+                <div>
+                    <h2>Miles to Kilometers</h2>
+                    <label htmlFor="miles">Miles</label>
+                    <input 
+                    value={!flipped ? amounts : Math.round(amounts / 1.609)}
+                    id="miles" 
+                    type="text" 
+                    placeholder="miles" 
+                    onChange = {Converter}
+                    disabled = {flipped === true}
+                    />
+                    <br />
+                    <label htmlFor="kilometers">Kilometers</label>
+                    <input
+                    value={!flipped ? Math.round(amounts * 1.609) : amounts} 
+                    id="miles" 
+                    type="text" 
+                    placeholder="kilometers" 
+                    onChange = {Converter}
+                    disabled = {!flipped === true}
+                    />
+                    <br/>
+                    <button onClick = {resetAmounts}>Click to Reset!</button>
+                    <button onClick = {Flipper}>Flip!</button>
+                </div>
+            );
+        };
+
+        function App() {
+            const [selectNum, setSelectNum] = React.useState("0");
+            function selectControler(event) {
+                setSelectNum((current) => event.target.value);
+            };
+            return (
+                <div>
+                    <h1>Sexy Converters</h1>
+                    <hr />
+                    <select onChange = {selectControler}>
+                        <option value="0">Minutes to Hours</option>
+                        <option value="1">Miles to Kilometers</option>
+                    </select>
+                    {selectNum === "0" ? <MinutesToHours /> : <MilesToKilometers />}
+                </div>    
+            );
+        };
+        ReactDOM.render(<App />, root);
+</script>
 </body>
 </html>
