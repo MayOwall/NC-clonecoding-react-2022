@@ -11,108 +11,31 @@
     <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
     <script type="text/babel">
-        const root = document.getElementById("root");
-
-        function MinutesToHours() {
-            const [amounts, setAmounts] = React.useState(0);
-            const [flipped, setFlipped] = React.useState(false);
-            let hours;
-            function onChange (event) {
-                setAmounts(event.target.value);
-            };
-            function resetAmounts () {
-                setAmounts(0);
-            };
-            function onFlip() {
-                resetAmounts();
-                setFlipped((current) => !current);
-            };
+        function Btn({text, fontSize = 12}) {
             return (
-                <div>
-                    <h2>Minutes to Hours</h2>
-                    <label htmlFor="minutes">Minutes</label>
-                    <input 
-                    value={flipped ? amounts * 60 : amounts} 
-                    id="minutes" 
-                    placeholder="minutes"
-                    onChange = {onChange}
-                    disabled = {flipped}
-                    />
-                    <br />
-                    <label htmlFor="hours">Hours</label>
-                    <input 
-                    value = {flipped ? amounts : Math.floor(amounts / 60)}
-                    id="hours" 
-                    placeholder="hours" 
-                    onChange = {onChange}
-                    disabled = {flipped===false}
-                    />
-                    <br />
-                    <button onClick={resetAmounts}>Click to Reset!!</button>
-                    <button onClick={onFlip}>Flip</button>
-                </div>
+                <button 
+                    style={{
+                        padding: "10px 20px",
+                        backgroundColor: "tomato",
+                        color: "white",
+                        border: "none",
+                        borderRadius: "10px",
+                        fontSize: fontSize
+                    }}
+                >{text}</button>
                 );
-        };
-        function MilesToKilometers() {
-            const [amounts, setAmounts] = React.useState(0);
-            const [flipped, setFlipped] = React.useState(false);
-            function Converter(event) {
-                setAmounts(event.target.value);
             };
-            function resetAmounts() {
-                setAmounts(0);
-            };
-            function Flipper() {
-                setFlipped((current) => !current);
-                resetAmounts();
-            };
+            function App() {
             return (
                 <div>
-                    <h2>Miles to Kilometers</h2>
-                    <label htmlFor="miles">Miles</label>
-                    <input 
-                    value={!flipped ? amounts : Math.round(amounts / 1.609)}
-                    id="miles" 
-                    type="text" 
-                    placeholder="miles" 
-                    onChange = {Converter}
-                    disabled = {flipped === true}
-                    />
-                    <br />
-                    <label htmlFor="kilometers">Kilometers</label>
-                    <input
-                    value={!flipped ? Math.round(amounts * 1.609) : amounts} 
-                    id="miles" 
-                    type="text" 
-                    placeholder="kilometers" 
-                    onChange = {Converter}
-                    disabled = {!flipped === true}
-                    />
-                    <br/>
-                    <button onClick = {resetAmounts}>Click to Reset!</button>
-                    <button onClick = {Flipper}>Flip!</button>
-                </div>
-            );
-        };
-
-        function App() {
-            const [selectNum, setSelectNum] = React.useState("0");
-            function selectControler(event) {
-                setSelectNum((current) => event.target.value);
-            };
-            return (
-                <div>
-                    <h1>Sexy Converters</h1>
-                    <hr />
-                    <select onChange = {selectControler}>
-                        <option value="0">Minutes to Hours</option>
-                        <option value="1">Miles to Kilometers</option>
-                    </select>
-                    {selectNum === "0" ? <MinutesToHours /> : <MilesToKilometers />}
+                    <Btn text="Hello" fontSize={20} />
+                    <Btn text="wow" fontSize={30} />
                 </div>    
             );
         };
+        const root = document.getElementById("root");
         ReactDOM.render(<App />, root);
 </script>
 </body>

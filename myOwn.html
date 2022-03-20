@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React clone coding</title>
+</head>
+<body>
+    <div id="root"></div>
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/prop-types@15.6/prop-types.js"></script>
+    <script type="text/babel">
+        function Btn({ text, backgroundColor, onClick }) {
+            return (
+                <button 
+                style={{
+                    margin: "1rem",
+                    padding: "1rem 2rem",
+                    backgroundColor,
+                    border:"1px solid gray",
+                    borderRadius: "1rem",
+                }}
+                >{text}</button>
+            )
+        }
+        Btn.propTypes = {
+            text: PropTypes.string,
+            backgroundColor: PropTypes.oneOf(["tomato", "white", "blue"]),
+        };
+        function App() {
+            return (
+                <div>
+                    <Btn text="Hello" backgroundColor="tomato"/>
+                    <Btn text="we are" backgroundColor="white"/>
+                    <Btn text="the Button!" backgroundColor="blue"/>
+                </div>    
+            );
+        };
+        const root = document.getElementById("root");
+        ReactDOM.render(<App />, root);
+</script>
+</body>
+</html>
+
+<!--
+    1. props가 있는 버튼 만들어주기
+    2. text와 style중 일부가 props를 통해 변경되는 캡슐 만들어주기
+    3. propstype을 체크할 수 있는 기능 추가하기.(propstype)
+-->
